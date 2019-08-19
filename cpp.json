@@ -1,0 +1,130 @@
+{
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"File begin":
+	{
+		"prefix": "Cpp",
+		"scope": "cpp",
+		"body": ["#pragma GCC target(\"sse,sse2,sse3,ssse3,sse4,popcnt,abm,avx,mmx,tune=native\")",
+		"#include<iostream>",
+		"#include<fstream>",
+		"#include<string>",
+		"#include<vector>",
+		"#include<set>",
+		"#include<cmath>",
+		"#include<map>",
+		"#include<thread>",
+		"#include<algorithm>",
+		"#define INF 999999999999999999",
+		"#define endl \"\\n\"",
+		"template<typename T>std::ostream&operator<<(std::ostream&out,std::vector<T>v){for(auto i:v){std::cout<<i<<' ';}std::cout<<endl;return out;}",
+		"template<typename T>std::istream&operator>>(std::istream&in,std::vector<T>&v){for(size_t i=0;i<v.size();++i)std::cin>>v[i];return in;}",
+		"\n",
+		"int main()",
+		"{",
+			"	std::ios_base::sync_with_stdio(false);std::cin.tie(nullptr);std::cout.tie(nullptr);",
+			"	",
+			"	return 0;",
+		"}"],
+		"description": "Основа всего скрипта"
+	},
+
+	"cin":
+	{
+		"prefix": "cin",
+		"body": "std::cin >> ",
+		"description": "Ввод"
+	},
+
+	"cout":
+	{
+		"prefix": "cout",
+		"body": "std::cout << ",
+		"description": "Вывод"
+	},
+
+	"vector":
+	{
+		"prefix": "vec",
+		"body": "std::vector<${1:typename}> ${2:name}(${3:size}, ${4:filler});\n",
+		"description": "Создание вектора"
+	},
+
+	"table":
+	{
+		"prefix": "table",
+		"body": "std::vector<std::vector<${1:typename}>> ${2:name}(${3:lines}, vector<$1>(${4:coloumns}, ${5:filler}));",
+		"description": "Создание двумерного массива"
+	},
+
+	"pair":
+	{
+		"prefix": "pair",
+		"body": "std::pair<${1:type1}, ${2:type2}> ${3:varname}(${4:first}, ${5:second});",
+		"description": "Создание пары значений"
+	},
+	
+	"push_back":
+	{
+		"prefix": "vpb",
+		"body": "${1:vecname}.push_back(${2:value});\n",
+		"description": "Быстрый PB"
+	},
+
+	"dijkstra":
+	{
+		"prefix": "dijkstra",
+		"body":
+		[
+"std::vector<long long> dijkstra(long long v, std::vector<std::vector<int>> matr, std::vector<long long> rast = std::vector<long long> (0), std::vector<bool> label = std::vector<bool> (0))",
+"{",
+"	if (rast.size() == 0)",
+"	{",
+"		rast.resize(matr.size(), INF);",
+"		rast[v] = 0;",
+"	}",
+"	if (label.size() == 0)",
+"		label.resize(matr.size(), false);",
+"	label[v] = true;",
+"	for (size_t i = 0; i < matr[v].size(); ++i)",
+"		if (matr[v][i] != -1 && !label[i] && rast[i] > rast[v] + matr[v][i])",
+"			rast[i] = rast[v] + matr[v][i];",
+"	long long min = INF;",
+"	long long ind = -1;",
+"	for (size_t i = 0; i < rast.size(); ++i)",
+"		if (min > rast[i] && !label[i])",
+"		{",
+"			min = rast[i];",
+"			ind = i;",
+"		}",
+"	if (ind != -1)",
+"		return dijkstra(ind, matr, rast, label);",
+"	else",
+"		return rast;",
+"}"
+		]
+	},
+
+	"string":
+	{
+		"prefix": "string",
+		"body": "std::string ",
+	},
+
+	"sort":
+	{
+		"prefix": "sort",
+		"body": "std::sort(${1:vec}.begin(), ${1:vec}.end(), [](${2:type} a, ${2:type} b){${3:lambda}});"
+	}
+}
