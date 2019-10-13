@@ -29,7 +29,10 @@
 
 using namespace std;
 
-using Graph = vector<vector<int>>; //список смежности
+using Graph_SS = vector<vector<int>>; //список смежности
+using Graph_MS = vector<vector<int>>; //матрица смежности
+using Graph_SR = vector<pair<int, int>>; //список ребер
+
 
 template<typename T>
 using Table = vector<vector<T>>;
