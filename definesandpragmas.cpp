@@ -16,6 +16,7 @@
 
 #include <bits/stdc++.h>
 
+#define inf 1e18
 #define ll long long
 #define all(x) x.begin(), x.end()
 #define endl "\n"
