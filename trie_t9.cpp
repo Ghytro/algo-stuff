@@ -3,7 +3,32 @@
 #include <ctime>
 #include <windows.h>
 #include <vector>
+#include <map>
 #include <algorithm>
+
+//конвертирование словаря которого я нашел по популярности
+//обязательный критерий работы данного дерева - слова, упорядоченные
+//по популярности/частотности, иначе подсказки могут быть кривые
+//например, вводишь "прив", а он предлагает "приведение" или "привозной"
+void convertDict()
+{
+    std::ifstream fin("dict.txt");
+    std::map<double, std::string> newDict;
+    while (true)
+    {
+        int id;
+        std::string word1, word2, partOfSpeech;
+        double freq;
+        fin >> id >> word1 >> word2 >> partOfSpeech >> freq;
+        if (fin.eof())
+            break;
+
+        newDict.insert({freq, word1});
+    }
+    std::ofstream fout("dict_new.txt");
+    for (auto i = newDict.rbegin(); i != newDict.rend(); ++i)
+        fout << i->second << std::endl;
+}
 
 class Trie
 {
@@ -109,13 +134,15 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
     setlocale(LC_ALL, "Russian");
+
     std::ifstream fin("dict.txt");
     std::string word;
 
     Trie trie;
 
     while (std::getline(fin, word))
-        trie.insert(word);
+        if (word != "")
+            trie.insert(word);
 
     fin.close();
     std::cout << "Dictionary created" << std::endl;
