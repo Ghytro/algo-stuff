@@ -77,6 +77,13 @@ private:
 
     void _recommendWord(const std::string &word, Node *node, std::string &rec, size_t index = 0)
     {
+        //выход на случай, если не получилось найти нужную букву
+        if (node == nullptr)
+        {
+            rec = word;
+            return;
+        }
+
         if (index >= word.length())
         {
             auto f = std::find(node->children.begin(), node->children.end(), nullptr);
@@ -94,14 +101,20 @@ private:
         {
             rec += word[index];
             _recommendWord(word, *f, rec, index + 1);
+            return;
         }
 
+        //INSERT CODE HERE
         //обработка случая, когда буква не найдена здесь
         //
         //то есть перебираем еще и буквы, которые
         //теоретически могут быть на ее месте
         //допустим находятся рядом на клавиатуре
         //или же просто грамматическая ошибка
+
+        //не получилось найти нужную букву
+        rec += word[index];
+        _recommendWord(word, nullptr, rec, index + 1);
     }
 
 public:
